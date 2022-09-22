@@ -1,11 +1,11 @@
 ﻿namespace ApplicationLayer.Auction;
 
 // There are libraries for validation. Use one of them.
-public class CreateAuctionCommandValidator : IValidator<CreateAuctionCommand>
+public class CreateAuctionCommandSyntaxValidator : ISyntaxValidator<CreateAuctionCommand>
 {
-    public ValidationResult Validate(CreateAuctionCommand request)
+    public SyntaxValidationResult Validate(CreateAuctionCommand request)
     {
-        var validationResult = new ValidationResult();
+        var validationResult = new SyntaxValidationResult();
 
         if (request.Id == null)
         {

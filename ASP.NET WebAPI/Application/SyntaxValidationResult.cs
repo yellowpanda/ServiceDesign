@@ -1,6 +1,6 @@
 ﻿namespace ApplicationLayer
 {
-    public class ValidationResult
+    public class SyntaxValidationResult
     {
         public List<string> Errors { get; } = new();
 

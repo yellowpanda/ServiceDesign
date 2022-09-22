@@ -9,12 +9,12 @@ public class CreateAuctionCommandController : Controller
 {
     // Should be injected
     private readonly ICommandHandler<CreateAuctionCommand, CreateAuctionCommandResponse> _handler = new CreateAuctionCommandHandler();
-    private readonly IValidator<CreateAuctionCommand> _validator = new CreateAuctionCommandValidator();
+    private readonly ISyntaxValidator<CreateAuctionCommand> _syntaxValidator = new CreateAuctionCommandSyntaxValidator();
 
     [HttpPost("Auctions/")]
     public IActionResult CreateAuction([FromBody]CreateAuctionCommand command)
     {
-        var validationResult = _validator.Validate(command);
+        var validationResult = _syntaxValidator.Validate(command);
         if (!validationResult.Success)
         {
             return new BadRequestObjectResult(validationResult);
