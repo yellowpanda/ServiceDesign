@@ -8,7 +8,7 @@ using ApplicationLayer;
 
 namespace AzureFunction.Auction;
 
-public class CreateAuctionQueryFunction
+public class CreateAuctionCommandFunction
 {
     // Should be injected
     private readonly ICommandHandler<CreateAuctionCommand, CreateAuctionCommandResponse> _handler = new CreateAuctionCommandHandler();
