@@ -1,18 +1,21 @@
 # Service design
 
-A good service:
-- Handles unhandled exceptions 
-- Performs syntax check on input data.
-- Is divided by domain concepts (screaming architecture)
-- has individual classes for each API method and domain handler.
+A good service treats commands and queries differently.
 
-Handle plumming in a consistent way
+A good service process command requests with the following steps:
+1. Syntax validation. Do the request contain all required data.
+2. Fetch data 
+3. Domain validation. Do the request make sense in relation to other data.
+4. Domain logic. Here we change state of the system.
+5. Response generation.
+
+A good service process query requests with the following steps:
+1. Syntax validation. Do the request contain all required data.
+2. Execute query.
+3. Response generation.
+
+A good service has a consistent model for:
 - Handle configuration.
-- Send events 
-
-# ASP.NET WebServices
-
-## Handles unhandled exceptions
-
-ASP.NET handles all unhandled exceptions and returns Internal Server Error (http response code 500). No thing to do here. 
+- Handles unhandled exceptions 
+- Is divided by domain concepts (domain folders pattern)
 

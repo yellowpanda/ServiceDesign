@@ -19,9 +19,11 @@ public class CreateAuctionCommandHandler : ICommandHandler<CreateAuctionCommand,
             return new HandlerResult<CreateAuctionCommandResponse>(validationResult.ValidationErrors);
         }
 
+        // Fetch data
+        var anyExistingAuctionsWithSameTitle = _unitOfWork.Query<DomainLayer.Auction>().Any(x => x.Title == request.Title);
 
         // Domain validation
-        if (_unitOfWork.Query<DomainLayer.Auction>().Any(x => x.Title == request.Title))
+        if (anyExistingAuctionsWithSameTitle)
         {
             return new HandlerResult<CreateAuctionCommandResponse>(new ValidationError($"Auction with title = '{request.Title}' already exist."));
         }
