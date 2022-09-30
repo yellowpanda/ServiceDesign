@@ -13,6 +13,11 @@ namespace Infrastructure
             return _dbContext.Set<TEntity>().AsQueryable();
         }
 
+        public IQueryable<TEntity> QueryWithNoTracking<TEntity>() where TEntity : class
+        {
+            return Query<TEntity>().AsNoTracking();
+        }
+
         public void Add<TEntity>(TEntity entity) where TEntity : class
         {
             _dbContext.Set<TEntity>().Add(entity);

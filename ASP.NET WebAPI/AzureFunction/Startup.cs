@@ -14,10 +14,18 @@ namespace Energinet.Business.MyService.FunctionApp
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
             builder.Services.AddTransient<IJsonDeserializer, JsonDeserializer>();
+            
+            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
             builder.Services.AddTransient<ICommandHandler<CreateAuctionCommand, CreateAuctionCommandResponse>, CreateAuctionCommandHandler>();
+            builder.Services.AddTransient<ISyntaxValidator<CreateAuctionCommand>, CreateAuctionCommandSyntaxValidator>();
+
             builder.Services.AddTransient<IQueryHandler<GetAuctionQuery, GetAuctionQueryResponse>, GetAuctionQueryHandler>();
+            builder.Services.AddTransient<ISyntaxValidator<GetAuctionQuery>, GetAuctionQuerySyntaxValidator>();
+
+            builder.Services.AddTransient<IQueryHandler<GetAuctionsQuery, GetAuctionsQueryResponse>, GetAuctionsQueryHandler>();
+            builder.Services.AddTransient<ISyntaxValidator<GetAuctionsQuery>, GetAuctionsQuerySyntaxValidator>();
         }
 
     }

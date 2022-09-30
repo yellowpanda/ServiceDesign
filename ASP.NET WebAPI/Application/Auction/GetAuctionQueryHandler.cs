@@ -3,11 +3,12 @@
 public class GetAuctionQueryHandler : IQueryHandler<GetAuctionQuery, GetAuctionQueryResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly ISyntaxValidator<GetAuctionQuery> _syntaxValidator = new GetAuctionQuerySyntaxValidator();
+    private readonly ISyntaxValidator<GetAuctionQuery> _syntaxValidator;
 
-    public GetAuctionQueryHandler(IUnitOfWork unitOfWork)
+    public GetAuctionQueryHandler(IUnitOfWork unitOfWork, ISyntaxValidator<GetAuctionQuery> syntaxValidator)
     {
         _unitOfWork = unitOfWork;
+        _syntaxValidator = syntaxValidator;
     }
 
     public HandlerResult<GetAuctionQueryResponse> Execute(GetAuctionQuery request)
@@ -20,11 +21,10 @@ public class GetAuctionQueryHandler : IQueryHandler<GetAuctionQuery, GetAuctionQ
         }
 
         // Query
-        var getAuctionQueryResponse = _unitOfWork.Query<DomainLayer.Auction>()
+        var getAuctionQueryResponse = _unitOfWork.QueryWithNoTracking<DomainLayer.Auction>()
             .Where(x => x.Id == request.Id)
             .Select(x => new GetAuctionQueryResponse(x.Id, x.Title))
             .SingleOrDefault();
-
 
         // Response generation
         if (getAuctionQueryResponse == null)

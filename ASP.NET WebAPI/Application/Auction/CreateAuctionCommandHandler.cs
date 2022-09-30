@@ -3,11 +3,11 @@
 public class CreateAuctionCommandHandler : ICommandHandler<CreateAuctionCommand, CreateAuctionCommandResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly ISyntaxValidator<CreateAuctionCommand> _syntaxValidator = new CreateAuctionCommandSyntaxValidator();
-
-    public CreateAuctionCommandHandler(IUnitOfWork unitOfWork)
+    private readonly ISyntaxValidator<CreateAuctionCommand> _syntaxValidator;
+    public CreateAuctionCommandHandler(IUnitOfWork unitOfWork, ISyntaxValidator<CreateAuctionCommand> syntaxValidator)
     {
         _unitOfWork = unitOfWork;
+        _syntaxValidator = syntaxValidator;
     }
 
     public HandlerResult<CreateAuctionCommandResponse> Execute(CreateAuctionCommand request)
