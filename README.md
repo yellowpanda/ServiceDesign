@@ -4,8 +4,10 @@ A good service:
 - Handles unhandled exceptions 
 - Performs syntax check on input data.
 - Is divided by domain concepts (screaming architecture)
-- has individual classes for each API method and domain handler. 
+- has individual classes for each API method and domain handler.
 
+Handle plumming in a consistent way
+- Handle configuration.
 
 # ASP.NET WebServices
 
