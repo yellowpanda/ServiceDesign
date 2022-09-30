@@ -1,6 +1,5 @@
 ﻿using ApplicationLayer;
 using ApplicationLayer.Auction;
-using Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -10,8 +9,12 @@ namespace AzureFunction.Auction;
 
 public class GetAuctionQueryFunction
 {
-    // Should be injected
-    private readonly IQueryHandler<GetAuctionQuery, GetAuctionQueryResponse> _handler = new GetAuctionQueryHandler(new UnitOfWork());
+    private readonly IQueryHandler<GetAuctionQuery, GetAuctionQueryResponse> _handler;
+
+    public GetAuctionQueryFunction(IQueryHandler<GetAuctionQuery, GetAuctionQueryResponse> handler)
+    {
+        _handler = handler;
+    }
 
     [FunctionName("GetAuctionQueryFunction")]
     public IActionResult Execute(

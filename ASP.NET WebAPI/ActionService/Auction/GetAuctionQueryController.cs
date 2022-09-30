@@ -1,14 +1,17 @@
 ﻿using ApplicationLayer;
 using ApplicationLayer.Auction;
-using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ActionService.Auction;
 
 public class GetAuctionQueryController : Controller
 {
-    // Should be injected
-    private readonly IQueryHandler<GetAuctionQuery, GetAuctionQueryResponse> _handler = new GetAuctionQueryHandler(new UnitOfWork());
+    private readonly IQueryHandler<GetAuctionQuery, GetAuctionQueryResponse> _handler;
+
+    public GetAuctionQueryController(IQueryHandler<GetAuctionQuery, GetAuctionQueryResponse> handler)
+    {
+        _handler = handler;
+    }
 
     [HttpGet("Auctions/{id}")]
     [ActionName("GetAuction")]

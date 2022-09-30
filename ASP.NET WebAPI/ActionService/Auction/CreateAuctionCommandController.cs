@@ -1,6 +1,5 @@
 ﻿using ApplicationLayer;
 using ApplicationLayer.Auction;
-using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ActionService.Auction;
@@ -8,9 +7,13 @@ namespace ActionService.Auction;
 
 public class CreateAuctionCommandController : Controller
 {
-    // Should be injected
-    private readonly ICommandHandler<CreateAuctionCommand, CreateAuctionCommandResponse> _handler = new CreateAuctionCommandHandler(new UnitOfWork());
-    
+    private readonly ICommandHandler<CreateAuctionCommand, CreateAuctionCommandResponse> _handler;
+
+    public CreateAuctionCommandController(ICommandHandler<CreateAuctionCommand, CreateAuctionCommandResponse> handler)
+    {
+        _handler = handler;
+    }
+
     [HttpPost("Auctions/")]
     public IActionResult CreateAuction([FromBody]CreateAuctionCommand command)
     {
