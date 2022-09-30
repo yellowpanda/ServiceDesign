@@ -1,4 +1,5 @@
-﻿using ApplicationLayer;
+﻿using System.Linq;
+using ApplicationLayer;
 using ApplicationLayer.Auction;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,13 @@ public class GetAuctionsQueryFunction
 
     [FunctionName("GetAuctionsQueryFunction")]
     public IActionResult Execute(
-        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "Auctions/")] 
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "Auctions/")]
         HttpRequest request)
     {
-        var query = new GetAuctionsQuery();
+        int.TryParse(request.Query["page"].LastOrDefault(), out var page);
+        int.TryParse(request.Query["pageSize"].LastOrDefault(), out var pageSize);
+
+        var query = new GetAuctionsQuery(page > 0 ? page : 1, pageSize>0? pageSize:10);
 
         var response = _handler.Execute(query);
 
@@ -29,6 +33,8 @@ public class GetAuctionsQueryFunction
         {
             return new BadRequestObjectResult(response.ValidationResult);
         }
+
+        request.HttpContext.Response.Headers.Add("X-Pagination", Newtonsoft.Json.JsonConvert.SerializeObject(response.Response.ElementsPaginationInfo));
 
         return new OkObjectResult(response.Response.Elements);
     }

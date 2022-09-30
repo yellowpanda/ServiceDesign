@@ -17,7 +17,8 @@ public class GetAuctionsQueryController
     [ActionName("GetAuctions")]
     public IActionResult GetAuctions()
     {
-        var query = new GetAuctionsQuery();
+        // TODO: Replace page and page size with url parameters
+        var query = new GetAuctionsQuery(0, int.MaxValue);
 
         var response = _handler.Execute(query);
 

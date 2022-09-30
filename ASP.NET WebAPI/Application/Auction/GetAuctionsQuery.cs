@@ -1,3 +1,3 @@
 ﻿namespace ApplicationLayer.Auction;
 
-public record GetAuctionsQuery() : IQuery<GetAuctionsQueryResponse>;
+public record GetAuctionsQuery(int Page, int PageSize) : IQuery<GetAuctionsQueryResponse>;

@@ -23,9 +23,9 @@ public class GetAuctionsQueryHandler : IQueryHandler<GetAuctionsQuery, GetAuctio
         // Query
         var elements = _unitOfWork.QueryWithNoTracking<DomainLayer.Auction>()
             .Select(x => new GetAuctionsQueryResponse.Element(x.Id, x.Title))
-            .ToList();
+            .GetPaged(request.Page, request.PageSize);
 
         // Response generation
-        return new HandlerResult<GetAuctionsQueryResponse>(new GetAuctionsQueryResponse(elements));
+        return new HandlerResult<GetAuctionsQueryResponse>(new GetAuctionsQueryResponse(elements.Results, elements.PaginationInfo));
     }
 }
