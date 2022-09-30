@@ -8,6 +8,7 @@ A good service:
 
 Handle plumming in a consistent way
 - Handle configuration.
+- Send events 
 
 # ASP.NET WebServices
 

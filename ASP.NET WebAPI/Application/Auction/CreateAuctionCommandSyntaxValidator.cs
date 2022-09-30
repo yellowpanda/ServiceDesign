@@ -7,9 +7,9 @@ public class CreateAuctionCommandSyntaxValidator : ISyntaxValidator<CreateAuctio
     {
         var validationResult = new SyntaxValidationResult();
 
-        if (request.Id == null)
+        if (request.Title == null)
         {
-            validationResult.Errors.Add("Id is null");
+            validationResult.Errors.Add("Title is null");
         }
 
         return validationResult;

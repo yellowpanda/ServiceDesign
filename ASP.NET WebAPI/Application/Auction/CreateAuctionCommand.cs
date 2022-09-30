@@ -1,3 +1,3 @@
 ﻿namespace ApplicationLayer.Auction;
 
-public record CreateAuctionCommand(int? Id, string? Title) : ICommand<CreateAuctionCommandResponse>;
+public record CreateAuctionCommand(string? Title) : ICommand<CreateAuctionCommandResponse>;

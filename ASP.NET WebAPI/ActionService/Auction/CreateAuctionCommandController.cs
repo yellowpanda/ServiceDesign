@@ -1,5 +1,6 @@
 ﻿using ApplicationLayer;
 using ApplicationLayer.Auction;
+using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ActionService.Auction;
@@ -8,7 +9,7 @@ namespace ActionService.Auction;
 public class CreateAuctionCommandController : Controller
 {
     // Should be injected
-    private readonly ICommandHandler<CreateAuctionCommand, CreateAuctionCommandResponse> _handler = new CreateAuctionCommandHandler();
+    private readonly ICommandHandler<CreateAuctionCommand, CreateAuctionCommandResponse> _handler = new CreateAuctionCommandHandler(new UnitOfWork());
     private readonly ISyntaxValidator<CreateAuctionCommand> _syntaxValidator = new CreateAuctionCommandSyntaxValidator();
 
     [HttpPost("Auctions/")]

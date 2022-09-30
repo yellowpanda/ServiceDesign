@@ -5,13 +5,14 @@ using Microsoft.Azure.WebJobs;
 using System.Threading.Tasks;
 using ApplicationLayer.Auction;
 using ApplicationLayer;
+using Infrastructure;
 
 namespace AzureFunction.Auction;
 
 public class CreateAuctionCommandFunction
 {
     // Should be injected
-    private readonly ICommandHandler<CreateAuctionCommand, CreateAuctionCommandResponse> _handler = new CreateAuctionCommandHandler();
+    private readonly ICommandHandler<CreateAuctionCommand, CreateAuctionCommandResponse> _handler = new CreateAuctionCommandHandler(new UnitOfWork());
     private readonly ISyntaxValidator<CreateAuctionCommand> _syntaxValidator = new CreateAuctionCommandSyntaxValidator();
     private readonly IJsonDeserializer _jsonDeserializer = new JsonDeserializer();
 

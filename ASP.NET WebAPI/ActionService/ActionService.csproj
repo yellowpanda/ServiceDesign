@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\ApplicationLayer.csproj" />
+    <ProjectReference Include="..\Infrastructure\InfrastructureLayer.csproj" />
   </ItemGroup>
 
 </Project>
