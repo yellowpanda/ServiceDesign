@@ -1,5 +1,5 @@
-﻿using ApplicationLayer;
-using ApplicationLayer.Auction;
+﻿using ApplicationLayer.Auction;
+using ApplicationLayer.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;

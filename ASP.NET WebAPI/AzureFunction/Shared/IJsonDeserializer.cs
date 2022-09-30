@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace AzureFunction;
+namespace AzureFunction.Shared;
 
 public interface IJsonDeserializer
 {

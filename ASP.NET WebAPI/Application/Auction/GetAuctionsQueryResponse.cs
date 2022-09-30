@@ -1,4 +1,6 @@
-﻿namespace ApplicationLayer.Auction;
+﻿using ApplicationLayer.Shared;
+
+namespace ApplicationLayer.Auction;
 
 public record GetAuctionsQueryResponse(IEnumerable<GetAuctionsQueryResponse.Element> Elements, PaginationInfo ElementsPaginationInfo)
 {

@@ -1,6 +1,6 @@
 using ApplicationLayer.Auction;
-using ApplicationLayer;
 using Infrastructure;
+using ApplicationLayer.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,6 @@
-﻿namespace ApplicationLayer.Auction;
+﻿using ApplicationLayer.Shared;
+
+namespace ApplicationLayer.Auction;
 
 public class GetAuctionsQueryHandler : IQueryHandler<GetAuctionsQuery, GetAuctionsQueryResponse>
 {

@@ -1,4 +1,4 @@
-﻿namespace ApplicationLayer;
+﻿namespace ApplicationLayer.Shared;
 
 public interface ICommandHandler<in TCommand, TCommandResponse> where TCommand : ICommand<TCommandResponse>
 {

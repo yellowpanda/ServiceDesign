@@ -4,7 +4,8 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs;
 using System.Threading.Tasks;
 using ApplicationLayer.Auction;
-using ApplicationLayer;
+using ApplicationLayer.Shared;
+using AzureFunction.Shared;
 
 namespace AzureFunction.Auction;
 

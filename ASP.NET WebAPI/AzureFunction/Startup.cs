@@ -1,6 +1,6 @@
-﻿using ApplicationLayer;
-using ApplicationLayer.Auction;
-using AzureFunction;
+﻿using ApplicationLayer.Auction;
+using ApplicationLayer.Shared;
+using AzureFunction.Shared;
 using Energinet.Business.MyService.FunctionApp;
 using Infrastructure;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;

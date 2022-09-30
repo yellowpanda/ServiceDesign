@@ -1,4 +1,4 @@
-﻿namespace ApplicationLayer;
+﻿namespace ApplicationLayer.Shared;
 
 /// <summary>
 /// Inspiration from https://www.codingame.com/playgrounds/5363/paging-with-entity-framework-core

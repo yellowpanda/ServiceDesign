@@ -1,5 +1,5 @@
-﻿using ApplicationLayer;
-using ApplicationLayer.Auction;
+﻿using ApplicationLayer.Auction;
+using ApplicationLayer.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ActionService.Auction;

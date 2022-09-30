@@ -1,4 +1,4 @@
-﻿namespace ApplicationLayer;
+﻿namespace ApplicationLayer.Shared;
 
 public class ValidationResult
 {

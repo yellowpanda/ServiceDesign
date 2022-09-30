@@ -1,4 +1,4 @@
-﻿namespace ApplicationLayer;
+﻿namespace ApplicationLayer.Shared;
 
 public class HandlerResult<TResponse>
 {
@@ -20,7 +20,7 @@ public class HandlerResult<TResponse>
             {
                 throw new InvalidOperationException($"{nameof(Response)} is not suppose to be called when validation has failed. Please check {nameof(ValidationSuccessful)} property before accessing this property.");
             }
-            return (TResponse)_response!;
+            return _response!;
         }
     }
 

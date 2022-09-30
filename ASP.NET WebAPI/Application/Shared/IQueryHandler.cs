@@ -1,4 +1,4 @@
-﻿namespace ApplicationLayer;
+﻿namespace ApplicationLayer.Shared;
 
 public interface IQueryHandler<in TQuery, TQueryResponse> where TQuery : IQuery<TQueryResponse>
 {

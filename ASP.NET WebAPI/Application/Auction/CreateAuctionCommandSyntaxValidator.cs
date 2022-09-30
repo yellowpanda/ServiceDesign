@@ -1,4 +1,6 @@
-﻿namespace ApplicationLayer.Auction;
+﻿using ApplicationLayer.Shared;
+
+namespace ApplicationLayer.Auction;
 
 // There are libraries for validation. Use one of them.
 public class CreateAuctionCommandSyntaxValidator : ISyntaxValidator<CreateAuctionCommand>

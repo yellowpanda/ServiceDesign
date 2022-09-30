@@ -1,6 +1,6 @@
-﻿using ApplicationLayer;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using DomainLayer;
+using ApplicationLayer.Shared;
 
 namespace Infrastructure
 {
