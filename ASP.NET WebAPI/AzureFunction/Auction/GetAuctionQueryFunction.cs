@@ -12,25 +12,21 @@ public class GetAuctionQueryFunction
 {
     // Should be injected
     private readonly IQueryHandler<GetAuctionQuery, GetAuctionQueryResponse> _handler = new GetAuctionQueryHandler(new UnitOfWork());
-    private readonly ISyntaxValidator<GetAuctionQuery> _syntaxValidator = new GetAuctionQuerySyntaxValidator();
 
     [FunctionName("GetAuctionQueryFunction")]
     public IActionResult Execute(
-        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "Auctions/{id}")] 
-        HttpRequest request)
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "Auctions/{id:int}")] 
+        HttpRequest request, int id)
     {
-        int.TryParse(request.Query["id"], out var id);
-        
         var query = new GetAuctionQuery(id);
-
-        var validationResult = _syntaxValidator.Validate(query);
-        if (!validationResult.Success)
-        {
-            return new BadRequestObjectResult(validationResult);
-        }
 
         var response = _handler.Execute(query);
 
-        return new OkObjectResult(response);
+        if (!response.ValidationSuccessful)
+        {
+            return new BadRequestObjectResult(response.ValidationResult);
+        }
+
+        return new OkObjectResult(response.Response);
     }
 }

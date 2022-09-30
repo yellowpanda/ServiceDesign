@@ -1,11 +1,5 @@
-﻿using System;
-using System.Xml.Serialization;
-using Energinet.Business.MyService.FunctionApp;
-using Infrastructure;
+﻿using Energinet.Business.MyService.FunctionApp;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 [assembly: FunctionsStartup(typeof(Startup))]
 

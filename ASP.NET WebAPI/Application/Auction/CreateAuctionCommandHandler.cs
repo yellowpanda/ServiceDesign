@@ -1,25 +1,31 @@
-﻿using DomainLayer;
-
-namespace ApplicationLayer.Auction;
+﻿namespace ApplicationLayer.Auction;
 
 public class CreateAuctionCommandHandler : ICommandHandler<CreateAuctionCommand, CreateAuctionCommandResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly ISyntaxValidator<CreateAuctionCommand> _syntaxValidator = new CreateAuctionCommandSyntaxValidator();
 
     public CreateAuctionCommandHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
 
-    public CreateAuctionCommandResponse Execute(CreateAuctionCommand request)
+    public HandlerResult<CreateAuctionCommandResponse> Execute(CreateAuctionCommand request)
     {
-        var title = request.Title ?? throw new ArgumentException("request.Title is null");
+        var validationResult = _syntaxValidator.Validate(request);
+        if (!validationResult.Success)
+        {
+            return new HandlerResult<CreateAuctionCommandResponse>(validationResult.ValidationErrors);
+        }
 
-        var auction = new DomainLayer.Auction();
-        auction.Title = title;
+        var auction = new DomainLayer.Auction
+        {
+            Title = request.Title!
+        };
 
         _unitOfWork.Add(auction);
+        _unitOfWork.SaveChanges();
 
-        return new CreateAuctionCommandResponse(auction.Id);
+        return new HandlerResult<CreateAuctionCommandResponse>(new CreateAuctionCommandResponse(auction.Id));
     }
 }

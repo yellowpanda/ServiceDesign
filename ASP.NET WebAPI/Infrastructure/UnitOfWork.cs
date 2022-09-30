@@ -1,8 +1,6 @@
 ﻿using ApplicationLayer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
 using DomainLayer;
-using Microsoft.Extensions.Options;
 
 namespace Infrastructure
 {
@@ -50,7 +48,7 @@ namespace Infrastructure
                 optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=MyContext;Integrated Security=SSPI");
             }
 
-            public DbSet<Auction> Auctions { get; set; }
+            public DbSet<Auction> Auctions { get; set; } = null!;
         }
     }
 }

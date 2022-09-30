@@ -3,15 +3,15 @@
 // There are libraries for validation. Use one of them.
 public class CreateAuctionCommandSyntaxValidator : ISyntaxValidator<CreateAuctionCommand>
 {
-    public SyntaxValidationResult Validate(CreateAuctionCommand request)
+    public ValidationResult Validate(CreateAuctionCommand request)
     {
-        var validationResult = new SyntaxValidationResult();
+        var validationResult = new List<ValidationError>();
 
         if (request.Title == null)
         {
-            validationResult.Errors.Add("Title is null");
+            validationResult.Add(new ValidationError("Title is null"));
         }
 
-        return validationResult;
+        return new ValidationResult(validationResult);
     }
 }

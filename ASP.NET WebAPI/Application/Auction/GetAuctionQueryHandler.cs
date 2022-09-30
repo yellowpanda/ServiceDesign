@@ -1,42 +1,33 @@
-﻿using System.Diagnostics;
-using DomainLayer;
-
-namespace ApplicationLayer.Auction;
+﻿namespace ApplicationLayer.Auction;
 
 public class GetAuctionQueryHandler : IQueryHandler<GetAuctionQuery, GetAuctionQueryResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly ISyntaxValidator<GetAuctionQuery> _syntaxValidator = new GetAuctionQuerySyntaxValidator();
 
     public GetAuctionQueryHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
 
-    public GetAuctionQueryResponse Execute(GetAuctionQuery request)
+    public HandlerResult<GetAuctionQueryResponse> Execute(GetAuctionQuery request)
     {
-        GetAuctionQueryResponse? getAuctionQueryResponse;
-        try
+        var validationResult = _syntaxValidator.Validate(request);
+        if (!validationResult.Success)
         {
-            var requestId = request.Id ?? throw new ArgumentException("request.Id is null");
-
-            getAuctionQueryResponse = _unitOfWork.Query<DomainLayer.Auction>()
-                .Where(x => x.Id == requestId)
-                .Select(x => new GetAuctionQueryResponse(x.Id, x.Title))
-                .SingleOrDefault();
-
-            if (getAuctionQueryResponse == null)
-            {
-                getAuctionQueryResponse = new GetAuctionQueryResponse(0, "No auction");
-            }
-
-
-        }
-        catch (Exception e)
-        {
-            Debug.WriteLine(e);
-            throw;
+            return new HandlerResult<GetAuctionQueryResponse>(validationResult.ValidationErrors);
         }
 
-        return getAuctionQueryResponse;
+        var getAuctionQueryResponse = _unitOfWork.Query<DomainLayer.Auction>()
+            .Where(x => x.Id == request.Id)
+            .Select(x => new GetAuctionQueryResponse(x.Id, x.Title))
+            .SingleOrDefault();
+
+        if (getAuctionQueryResponse == null)
+        {
+            return new HandlerResult<GetAuctionQueryResponse>(new ValidationError($"No action found with id = {request.Id}."));
+        }
+
+        return new HandlerResult<GetAuctionQueryResponse>(getAuctionQueryResponse);
     }
 }

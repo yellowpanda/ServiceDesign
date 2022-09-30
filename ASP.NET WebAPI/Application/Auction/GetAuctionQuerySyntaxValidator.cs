@@ -2,15 +2,15 @@
 
 public class GetAuctionQuerySyntaxValidator : ISyntaxValidator<GetAuctionQuery>
 {
-    public SyntaxValidationResult Validate(GetAuctionQuery request)
+    public ValidationResult Validate(GetAuctionQuery request)
     {
-        var validationResult = new SyntaxValidationResult();
+        var validationResult = new List<ValidationError>();
 
         if (request.Id == null)
         {
-            validationResult.Errors.Add("request.Id is null");
+            validationResult.Add(new ValidationError("request.Id is null"));
         }
 
-        return validationResult;
+        return new ValidationResult(validationResult);
     }
 }

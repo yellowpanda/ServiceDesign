@@ -2,5 +2,5 @@
 
 public interface ISyntaxValidator<in TRequest> where TRequest : IRequest
 {
-    public SyntaxValidationResult Validate(TRequest request);
+    public ValidationResult Validate(TRequest request);
 }

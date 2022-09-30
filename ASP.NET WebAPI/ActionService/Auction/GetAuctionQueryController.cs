@@ -9,7 +9,6 @@ public class GetAuctionQueryController : Controller
 {
     // Should be injected
     private readonly IQueryHandler<GetAuctionQuery, GetAuctionQueryResponse> _handler = new GetAuctionQueryHandler(new UnitOfWork());
-    private readonly ISyntaxValidator<GetAuctionQuery> _syntaxValidator = new GetAuctionQuerySyntaxValidator();
 
     [HttpGet("Auctions/{id}")]
     [ActionName("GetAuction")]
@@ -17,13 +16,13 @@ public class GetAuctionQueryController : Controller
     {
         var query = new GetAuctionQuery(id);
 
-        var validationResult = _syntaxValidator.Validate(query);
-        if (!validationResult.Success)
+        var response = _handler.Execute(query);
+
+        if (!response.ValidationSuccessful)
         {
-            return new BadRequestObjectResult(validationResult);
+            return new BadRequestObjectResult(response.ValidationResult);
         }
 
-        var response = _handler.Execute(query);
-        return new OkObjectResult(response);
+        return new OkObjectResult(response.Response);
     }
 }

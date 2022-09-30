@@ -13,10 +13,9 @@ public class CreateAuctionCommandFunction
 {
     // Should be injected
     private readonly ICommandHandler<CreateAuctionCommand, CreateAuctionCommandResponse> _handler = new CreateAuctionCommandHandler(new UnitOfWork());
-    private readonly ISyntaxValidator<CreateAuctionCommand> _syntaxValidator = new CreateAuctionCommandSyntaxValidator();
     private readonly IJsonDeserializer _jsonDeserializer = new JsonDeserializer();
-
-
+    private readonly ISyntaxValidator<CreateAuctionCommand> _syntaxValidator = new CreateAuctionCommandSyntaxValidator();
+    
     [FunctionName("CreateAuctionQueryFunction")]
     public async Task<IActionResult> Execute(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "Auctions")] 
@@ -25,14 +24,13 @@ public class CreateAuctionCommandFunction
 
         var command = await _jsonDeserializer.DeserializerAsync<CreateAuctionCommand>(request);
 
-        var validationResult = _syntaxValidator.Validate(command);
-        if (!validationResult.Success)
-        {
-            return new BadRequestObjectResult(validationResult);
-        };
-
         var response = _handler.Execute(command);
 
-        return new CreatedResult("/Actions/" + response.Id, null);
+        if (!response.ValidationSuccessful)
+        {
+            return new BadRequestObjectResult(response.ValidationResult);
+        }
+
+        return new CreatedResult("/Actions/" + response.Response.Id, null);
     }
 }
