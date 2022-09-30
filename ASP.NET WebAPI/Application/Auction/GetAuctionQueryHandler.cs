@@ -12,17 +12,21 @@ public class GetAuctionQueryHandler : IQueryHandler<GetAuctionQuery, GetAuctionQ
 
     public HandlerResult<GetAuctionQueryResponse> Execute(GetAuctionQuery request)
     {
+        // Syntax validation
         var validationResult = _syntaxValidator.Validate(request);
         if (!validationResult.Success)
         {
             return new HandlerResult<GetAuctionQueryResponse>(validationResult.ValidationErrors);
         }
 
+        // Query
         var getAuctionQueryResponse = _unitOfWork.Query<DomainLayer.Auction>()
             .Where(x => x.Id == request.Id)
             .Select(x => new GetAuctionQueryResponse(x.Id, x.Title))
             .SingleOrDefault();
 
+
+        // Response generation
         if (getAuctionQueryResponse == null)
         {
             return new HandlerResult<GetAuctionQueryResponse>(new ValidationError($"No action found with id = {request.Id}."));

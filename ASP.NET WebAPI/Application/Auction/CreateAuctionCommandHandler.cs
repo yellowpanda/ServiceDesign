@@ -12,12 +12,21 @@ public class CreateAuctionCommandHandler : ICommandHandler<CreateAuctionCommand,
 
     public HandlerResult<CreateAuctionCommandResponse> Execute(CreateAuctionCommand request)
     {
+        // Syntax validation
         var validationResult = _syntaxValidator.Validate(request);
         if (!validationResult.Success)
         {
             return new HandlerResult<CreateAuctionCommandResponse>(validationResult.ValidationErrors);
         }
 
+
+        // Domain validation
+        if (_unitOfWork.Query<DomainLayer.Auction>().Any(x => x.Title == request.Title))
+        {
+            return new HandlerResult<CreateAuctionCommandResponse>(new ValidationError($"Auction with title = '{request.Title}' already exist."));
+        }
+        
+        // Domain logic
         var auction = new DomainLayer.Auction
         {
             Title = request.Title!
@@ -26,6 +35,7 @@ public class CreateAuctionCommandHandler : ICommandHandler<CreateAuctionCommand,
         _unitOfWork.Add(auction);
         _unitOfWork.SaveChanges();
 
+        // Response generation
         return new HandlerResult<CreateAuctionCommandResponse>(new CreateAuctionCommandResponse(auction.Id));
     }
 }
