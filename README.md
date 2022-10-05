@@ -24,7 +24,14 @@ A good service has a consistent model for:
 # Example
 
 ## Value objects
+Use Nuget package [ValueOf](https://www.nuget.org/packages/ValueOf). 
 
-Use Nuget package [https://www.nuget.org/packages/ValueOf](ValueOf). 
-See example in [Price.cs](./ASP.NET WebAPI/DomainLayer/Price.cs).
-Or [Treating Primitive Obsession with ValueObjects | DDD in .NET](https://youtu.be/h4uldNA1JUE).
+Why use value obejcts see [Treating Primitive Obsession with ValueObjects | DDD in .NET](https://youtu.be/h4uldNA1JUE) .
+
+See example in [Price.cs](./ASP.NET%20WebAPI/DomainLayer/Price.cs).
+
+Entity Framework needs to be told that it is a value object, like this:
+```csharp
+modelBuilder.Entity<Bid>().OwnsOne(x => x.Price);`
+``` 
+See [UnitOfWork.cs](./ASP.NET%20WebAPI/Infrastructure/Persistence/UnitOfWork.cs).
