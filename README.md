@@ -1,4 +1,4 @@
-# Service design
+# Good service design
 
 A good service treats commands and queries differently.
 
@@ -18,4 +18,13 @@ A good service has a consistent model for:
 - Handle configuration.
 - Handles unhandled exceptions 
 - Is divided by domain concepts (domain folders pattern)
+- Value Objects 
 
+
+# Example
+
+## Value objects
+
+Use Nuget package [https://www.nuget.org/packages/ValueOf](ValueOf). 
+See example in [Price.cs](./ASP.NET WebAPI/DomainLayer/Price.cs).
+Or [Treating Primitive Obsession with ValueObjects | DDD in .NET](https://youtu.be/h4uldNA1JUE).

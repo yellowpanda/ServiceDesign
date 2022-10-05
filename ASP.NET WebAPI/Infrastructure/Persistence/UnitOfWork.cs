@@ -54,6 +54,14 @@ namespace Infrastructure
             }
 
             public DbSet<Auction> Auctions { get; set; } = null!;
+            public DbSet<Bid> Bids { get; set; } = null!;
+
+            protected override void OnModelCreating(ModelBuilder modelBuilder)
+            {
+                modelBuilder.Entity<Bid>().OwnsOne(x => x.Price);
+
+                base.OnModelCreating(modelBuilder);
+            }
         }
     }
 }

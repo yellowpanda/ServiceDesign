@@ -1,13 +1,14 @@
 ﻿using ApplicationLayer.Shared;
+using DomainLayer;
 
 namespace ApplicationLayer.Bid;
 
-public class CreateBidHandler : ICommandHandler<CreateBidCommand, CreateBidCommandResponse>
+public class CreateBidCommandHandler : ICommandHandler<CreateBidCommand, CreateBidCommandResponse>
 {
     private readonly ISyntaxValidator<CreateBidCommand> _syntaxValidator;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateBidHandler(ISyntaxValidator<CreateBidCommand> syntaxValidator, IUnitOfWork unitOfWork)
+    public CreateBidCommandHandler(ISyntaxValidator<CreateBidCommand> syntaxValidator, IUnitOfWork unitOfWork)
     {
         _syntaxValidator = syntaxValidator;
         _unitOfWork = unitOfWork;
@@ -36,8 +37,7 @@ public class CreateBidHandler : ICommandHandler<CreateBidCommand, CreateBidComma
         {
             BidId = (int)request.AuctionId!,
             BidderName = request.BidderName!,
-            Price = (decimal)request.Price!,
-
+            Price = Price.From((decimal)request.Price!),
         };
 
         _unitOfWork.Add(bid);
