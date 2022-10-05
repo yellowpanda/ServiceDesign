@@ -10,7 +10,7 @@ public class GetAuctionQuerySyntaxValidator : ISyntaxValidator<GetAuctionQuery>
 
         if (request.Id == null)
         {
-            validationResult.Add(new ValidationError("request.Id is null"));
+            validationResult.Add(new ValidationError($"{request.Id} is not provided."));
         }
 
         return new ValidationResult(validationResult);
