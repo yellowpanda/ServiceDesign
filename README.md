@@ -32,6 +32,6 @@ See example in [Price.cs](./ASP.NET%20WebAPI/DomainLayer/Price.cs).
 
 Entity Framework needs to be told about value object, like this:
 ```csharp
-modelBuilder.Entity<Bid>().OwnsOne(x => x.Price);`
+modelBuilder.Entity<Bid>().OwnsOne(x => x.Price);
 ``` 
 See [UnitOfWork.cs](./ASP.NET%20WebAPI/Infrastructure/Persistence/UnitOfWork.cs).
