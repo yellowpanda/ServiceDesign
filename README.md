@@ -30,7 +30,7 @@ Why use value obejcts see [Treating Primitive Obsession with ValueObjects | DDD 
 
 See example in [Price.cs](./ASP.NET%20WebAPI/DomainLayer/Price.cs).
 
-Entity Framework needs to be told that it is a value object, like this:
+Entity Framework needs to be told about value object, like this:
 ```csharp
 modelBuilder.Entity<Bid>().OwnsOne(x => x.Price);`
 ``` 
