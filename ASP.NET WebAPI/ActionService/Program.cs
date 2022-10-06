@@ -1,4 +1,5 @@
 using ApplicationLayer.Auction;
+using ApplicationLayer.Bid;
 using Infrastructure;
 using ApplicationLayer.Shared;
 
@@ -21,6 +22,9 @@ builder.Services.AddTransient<ISyntaxValidator<GetAuctionQuery>, GetAuctionQuery
 
 builder.Services.AddTransient<IQueryHandler<GetAuctionsQuery, GetAuctionsQueryResponse>, GetAuctionsQueryHandler>();
 builder.Services.AddTransient<ISyntaxValidator<GetAuctionsQuery>, GetAuctionsQuerySyntaxValidator>();
+
+builder.Services.AddTransient<ICommandHandler<CreateBidCommand, CreateBidCommandResponse>, CreateBidCommandHandler>();
+builder.Services.AddTransient<ISyntaxValidator<CreateBidCommand>, CreateBidCommandSyntaxValidator>();
 
 var app = builder.Build();
 

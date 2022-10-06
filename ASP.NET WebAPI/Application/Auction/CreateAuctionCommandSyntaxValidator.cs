@@ -11,7 +11,7 @@ public class CreateAuctionCommandSyntaxValidator : ISyntaxValidator<CreateAuctio
 
         if (request.Title == null)
         {
-            validationResult.Add(new ValidationError("Title is null"));
+            validationResult.Add(new ValidationError($"{nameof(request.Title)} is not provided."));
         }
 
         return new ValidationResult(validationResult);
