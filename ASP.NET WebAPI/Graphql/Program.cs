@@ -1,12 +1,14 @@
 using ApplicationLayer.Shared;
-using Graphql.Auction;
+using Graphql;
 using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGraphQLServer()
-    .AddQueryType<AuctionQuery>();
+    .AddFiltering()
+    .AddSorting()
+    .AddQueryType<Query>();
 
 // TODO This should not be singleton.
 builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();

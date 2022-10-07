@@ -19,6 +19,7 @@ A good service has a consistent model for:
 - Handles unhandled exceptions 
 - Is divided by domain concepts (domain folders pattern)
 - Value Objects 
+- Filters, sorting and pagination
 
 
 # Example
@@ -38,8 +39,8 @@ See [UnitOfWork.cs](./ASP.NET%20WebAPI/Infrastructure/Persistence/UnitOfWork.cs)
 
 
 # GraphQL
+Every good service needs a consistent way of handling filters, sorting and pagination on queries. Why not use a common known query language like GraphQL.
 
+How to implement GraphQL with a library called HotChocolate: [GraphQL API in .NET w/ Hot Chocolate](https://youtube.com/playlist?list=PLA8ZIAm2I03g9z705U3KWJjTv0Nccw9pj).
 
-
-https://youtu.be/4BoD9SFxxjg
-
+See [Query.cs](./ASP.NET%20WebAPI/Graphql/Query.cs) and [program.cs](./ASP.NET%20WebAPI/Graphql/program.cs).
