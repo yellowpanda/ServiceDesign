@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using DomainLayer;
 using ApplicationLayer.Shared;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+using Microsoft.Extensions.Logging.Debug;
 
 namespace Infrastructure
 {
@@ -40,6 +43,8 @@ namespace Infrastructure
 
         public class MyDbContext : DbContext
         {
+            public static readonly LoggerFactory _myLoggerFactory = new(new[] { new DebugLoggerProvider() });
+
             public MyDbContext()
             {
             }
@@ -51,10 +56,12 @@ namespace Infrastructure
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
                 optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=MyContext;Integrated Security=SSPI");
+                optionsBuilder.UseLoggerFactory(_myLoggerFactory);
             }
 
             public DbSet<Auction> Auctions { get; set; } = null!;
             public DbSet<Bid> Bids { get; set; } = null!;
+
 
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
