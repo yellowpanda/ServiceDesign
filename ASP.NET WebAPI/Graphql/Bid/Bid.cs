@@ -1,6 +1,6 @@
 ﻿using DomainLayer;
 
-namespace Graphql.Auction;
+namespace Graphql.Bid;
 
 public class Bid
 {
